@@ -17,26 +17,49 @@ int diag[20] = {0, };
 int promising(int k, int flag);
 int backtracking(int k, int flag)
 {
-	if(promising(k, flag))
+//	if(promising(k, flag))
 	{
 		if(k == vec.size() - 1)
 		{
-			if(max_sum < sum)
-				max_sum = sum;
+			if(max_sum < flag)
+				max_sum = flag;
 		}
 		else
 		{
 			if(diag[vec[k+1].first+vec[k+1].second] == 0)
-			{			
-				board[vec[k+1].first][vec[k+1].second] = 2;
-				diag[vec[k+1].first+vec[k+1].second] = 1;
-				sum++;
-				backtracking(k+1, 1);
+			{
+				int fla = 0;
+				if(k != 0)
+				for(int i = 0; i < 2; i++)
+				{	
+					int nR = vec[k+1].first;
+					int nC = vec[k+1].second;
+					while(1)
+					{
+						nR += dr[i];
+						nC += dr[i];
+						if(nR < 1 || nR > N || nC < 1 || nC > N)
+							break;
+						if(board[nR][nC] == 2)
+						{
+							fla = 1;	
+						}
+					}
+					if(fla == 1)
+						break;
+				}
+				if(fla == 0)
+				{
+					board[vec[k+1].first][vec[k+1].second] = 2;
+					diag[vec[k+1].first+vec[k+1].second] = 1;
+					//sum++;
+					backtracking(k+1, flag+1);
+				}
 			}
 			board[vec[k+1].first][vec[k+1].second] = 1;
 			diag[vec[k+1].first+vec[k+1].second] = 0;
-			sum--;	
-			backtracking(k+1, 0);
+			//sum--;	
+			backtracking(k+1, flag);
 		}
 
 	}
@@ -51,6 +74,8 @@ int promising(int k, int flag)
 
 	if(flag == 0)
 		return 1;
+	if(diag[vec[k].first+vec[k].second] == 1)
+		return 0;
 	for(int i = 0; i < 2; i++)
 	{	
 		int nR = vec[k].first;
