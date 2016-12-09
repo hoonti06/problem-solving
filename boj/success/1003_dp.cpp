@@ -7,12 +7,10 @@ int dp[2][MAX_N], num[MAX_N];
 
 int main()
 {
-
 	freopen("in.txt", "r", stdin);
 	scanf("%d\n", &N);
 	for(int i = 0; i < N; i++)
 	{
-	
 		scanf("%d\n", &num[i]);
 		if(num[i] > m)
 			m = num[i];
@@ -30,5 +28,4 @@ int main()
 
 	for(int i = 0; i < N; i++)
 		printf("%d %d\n", dp[0][num[i]], dp[1][num[i]]);
-
 }
