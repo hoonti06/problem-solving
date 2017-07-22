@@ -1,3 +1,11 @@
+//in.txt
+//4
+//1
+//2
+//882377
+//999999
+
+
 #include <cstdio>
 #include <algorithm>
 #include <cstring>
