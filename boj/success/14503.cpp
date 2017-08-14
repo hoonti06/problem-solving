@@ -3,68 +3,64 @@
 
 #define MAX_N 55
 
-int N, M, way;
-int input[MAX_N][MAX_N];
+int map[MAX_N][MAX_N];
 
 int dx[4] = { 0, -1, 0, 1};
 int dy[4] = {-1,  0, 1, 0};
 
-int res = 0;
+int res;
 
 int main()
 {
 	freopen("in.txt", "r", stdin);
 
+	int N, M;
 	scanf("%d%d", &N, &M);
 
+	int r, c, dir;
+	scanf("%d%d%d", &r, &c, &dir);
 
-	int i, j;
-	int r, c;
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			scanf("%d", &map[i][j]);
 
-	scanf("%d%d%d", &r, &c, &way);
-	for (i = 0; i < N; i++)
-		for (j = 0; j < M; j++)
-			scanf("%d", &input[i][j]);
-
-	bool flag = true;
-	while (flag)
+	bool isFinish = false;
+	while(!isFinish)
 	{
-		if (!input[r][c])
+		if (map[r][c] == 0)
 			res++;
-		input[r][c] = 2;
-
+		map[r][c] = 2;
+			
 		for (int i = 0; i < 5; i++)
 		{
-			if (i == 4)
+			int nr, nc;
+
+			if (i != 4)
 			{
-				int row = r + dx[(way + 3) % 4];
-				int col = c + dy[(way + 3) % 4];
+				nr = r + dx[dir];
+				nc = c + dy[dir];
 
-				if (input[row][col] != 1)
+				dir = (dir + 3) % 4;
+
+				if (map[nr][nc] == 0)
 				{
-					r = row;
-					c = col;
-				}
-				else
-					flag = false;
-
-			}
-			else
-			{
-				int row = r + dx[way];
-				int col = c + dy[way];
-
-				way = (way + 3) % 4;
-				if (!input[row][col])
-				{
-					r = row;
-					c = col;
+					r = nr, c = nc;
 					break;
 				}
 			}
+			else
+			{
+				nr = r + dx[(dir + 3) % 4];
+				nc = c + dy[(dir + 3) % 4];
 
+				if (map[nr][nc] == 1)
+					isFinish = true;
+				else
+					r = nr, c = nc;
+			}
 		}
 
 	}
-	printf("%d\n", res);
+	printf("%d", res);
+
 }
