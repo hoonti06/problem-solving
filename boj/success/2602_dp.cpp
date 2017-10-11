@@ -81,3 +81,84 @@ int main()
 	printf("%d", process());
 	return 0;
 }
+
+
+
+//#include <cstdio>
+//#include <algorithm>
+//#include <vector>
+//#include <cstring>
+//#include <cmath>
+//#include <functional>
+//#include <queue>
+//
+//using namespace std;
+//
+//#define MAX_N 105
+//
+//int N, M;
+//
+//char input[MAX_N];
+//char board[2][MAX_N];
+//int dp[2][MAX_N][MAX_N];
+//
+//int main()
+//{
+//	freopen("in.txt", "r", stdin);
+//
+//	scanf("%s", input);
+//	scanf("%s", board[0]);
+//	scanf("%s", board[1]);
+//
+//	N = strlen(board[0]);
+//	M = strlen(input);
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		if (input[0] == board[0][i])
+//			dp[0][i][0] = 1;
+//		if (input[0] == board[1][i])
+//			dp[1][i][0] = 1;
+//
+//	}
+//
+//	for (int i = 1; i < strlen(input); i++)
+//	{
+//		for (int j = 0; j < N; j++)
+//		{
+//			if (input[i] == board[0][j])
+//			{
+//				for (int k = 0; k < j; k++)
+//				{
+//					if (input[i - 1] != board[1][k])
+//						continue;
+//
+//					dp[0][j][i] += dp[1][k][i - 1];
+//
+//				}
+//
+//			}
+//			if (input[i] == board[1][j])
+//			{
+//				for (int k = 0; k < j; k++)
+//				{
+//					if (input[i - 1] != board[0][k])
+//						continue;
+//
+//					dp[1][j][i] += dp[0][k][i - 1];
+//
+//				}
+//
+//			}
+//
+//		}
+//
+//	}
+//
+//	int sum = 0;
+//	for (int i = 0; i < N; i++)
+//		sum += dp[0][i][M-1] + dp[1][i][M-1];
+//
+//	printf("%d", sum);
+//
+//}

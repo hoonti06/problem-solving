@@ -38,5 +38,4 @@ int main()
 		}
 	}
 	printf("%d", dp[N][M]);
-
 }
