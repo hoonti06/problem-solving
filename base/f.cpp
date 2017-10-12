@@ -29,7 +29,7 @@ int main()
 	{
 		int from, to, capacity;
 		scanf("%d%d%d", &from, &to, &capacity);
-		adj[from].push_back()
+//		adj[from].push_back()
 
 
 

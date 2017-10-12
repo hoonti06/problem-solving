@@ -13,7 +13,7 @@ using namespace std;
 int N, K;
 
 int dp[MAX_N][MAX_K];
-int v[MAX_N], w[MAX_N];
+int w[MAX_N], p[MAX_N];
 
 int process()
 {
@@ -21,15 +21,12 @@ int process()
 	{
 		for (int k = 0; k <= K; k++)
 		{
-			if (w[n] - k > 0)
-				dp[n][k] = dp[n - 1][k];
+			if (k - w[n] >= 0)
+				dp[n][k] = max(dp[n-1][k], dp[n-1][k-w[n]] + p[n]);
 			else
-				dp[n][k] = max(dp[n - 1][k - w[n]] + v[n], dp[n - 1][k]);
-
+				dp[n][k] = dp[n-1][k];
 		}
-
 	}
-
 	return 0;
 }
 
@@ -39,7 +36,7 @@ int main()
 
 	scanf("%d%d", &N, &K);
 	for (int i = 1; i <= N; i++)
-		scanf("%d%d", &v[i], &w[i]);
+		scanf("%d%d", &p[i], &w[i]);
 
 	process();
 
