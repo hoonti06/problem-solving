@@ -37,6 +37,7 @@ int dfs(int jr, int jc, int hr, int hc, int cnt)
 		if (isVisited[njr][njc] == true)
 			continue;
 
+		isVisited[njr][njc] = true;
 		for (int j = 0; j < 4; j++)
 		{
 			int nhr = hr + dx[j];
@@ -44,7 +45,6 @@ int dfs(int jr, int jc, int hr, int hc, int cnt)
 			
 			if (nhr < 0 || nhr >= 5 || nhc < 0 || nhc >= 5)
 				continue;
-
 			if (isVisited[nhr][nhc] == true)
 				continue;
 
@@ -59,14 +59,11 @@ int dfs(int jr, int jc, int hr, int hc, int cnt)
 					continue;
 			}
 
-			isVisited[njr][njc] = true;
 			isVisited[nhr][nhc] = true;
-
 			dfs(njr, njc, nhr, nhc, cnt + 2);
-
 			isVisited[njr][njc] = false;
-			isVisited[nhr][nhc] = false;
 		}
+		isVisited[nhr][nhc] = false;
 	}
 }
 
