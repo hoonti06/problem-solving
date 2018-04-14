@@ -1,4 +1,5 @@
-#include<stdio.h>
+#include<cstdio>
+#include<algorithm>
 
 #define MAX_N 45
 
@@ -12,13 +13,10 @@ int main()
 	for(int i = 0; i < N; i++)
 	{
 		scanf("%d\n", &num[i]);
-		if(num[i] > m)
-			m = num[i];
+		m = max(m, num[i]);
 	}
-	dp[0][0] = 1;
-	dp[0][1] = 0;
-	dp[1][0] = 0;
-	dp[1][1] = 1;
+	dp[0][0] = 1, dp[0][1] = 0;
+	dp[1][0] = 0, dp[1][1] = 1;
 
 	for(int i = 2; i <= m; i++)
 	{
