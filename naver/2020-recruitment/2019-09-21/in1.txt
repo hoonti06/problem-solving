@@ -1,0 +1,10 @@
+4
+abc.def@x.com
+abc
+abc@defx
+abc@defx.xyz
+4
+abc.def@x.com
+abc
+abc@defx
+abc@defx.xyz
