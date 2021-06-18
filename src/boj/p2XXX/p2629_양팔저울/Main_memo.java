@@ -4,23 +4,20 @@ import java.io.*;
 import java.util.*;
 
 public class Main_memo {
-    static final int OFFSET = 15010;
-    static int N, M, weightSum;
-    static int[] weight;
-    static boolean[][] memo = new boolean[31][OFFSET * 2];
+    static final int OFFSET = 15010; // 추 30(개) x 500(g) = 15000
+    static int N, M;
+    static int[] weight = new int[35];
+    static boolean[][] memo = new boolean[35][OFFSET * 2];
 
-    static boolean go(int cnt, int num) {
-        if (cnt >= N) return false;
-        if (num < 0 || num > OFFSET + weightSum) return false;
-        if (cnt == 0 && num == 0) return true;
-        if (cnt < 0) return false;
+    static void go(int idx, int curWeight) {
+        if (memo[idx][curWeight]) return;
+        memo[idx][curWeight] = true;
 
-        if (memo[cnt][num]) return memo[cnt][num];
+        if (idx >= N) return; // idx가 N 이상인지 여기서 체크해야 한다
 
-        memo[cnt][num] |= go(cnt - 1, num - weight[cnt]);
-        memo[cnt][num] |= go(cnt - 1, num + weight[cnt]);
-        memo[cnt][num] |= go(cnt - 1, num);
-        return memo[cnt][num];
+        go(idx + 1, curWeight + weight[idx+1]); // 왼쪽에 두기
+        go(idx + 1, curWeight - weight[idx+1]); // 오른쪽에 두기
+        go(idx + 1, curWeight); // 안 두기
     }
 
     public static void main(String[] args) throws Exception {
@@ -29,14 +26,13 @@ public class Main_memo {
 
         N = Integer.parseInt(in.readLine());
         StringTokenizer st = new StringTokenizer(in.readLine(), " ");
-        weight = new int[N+1];
-        weightSum = 0;
-        for (int i = N; i >= 1; i--) {
+        int weightSum = 0;
+        for (int i = 1; i <= N; i++) {
             weight[i] = Integer.parseInt(st.nextToken());
             weightSum += weight[i];
         }
 
-        go(N-1, OFFSET + weightSum);
+        go(0, OFFSET);
 
         M = Integer.parseInt(in.readLine());
         st = new StringTokenizer(in.readLine(), " ");
@@ -44,7 +40,7 @@ public class Main_memo {
         for (int i = 0; i < M; i++) {
             int input = Integer.parseInt(st.nextToken());
             String res = "N";
-            if (input <= weightSum) {
+            if (input <= weightSum) { // 최대 나올 수 있는 값보다 크면 skip
                 for (int j = 1; j <= N; j++) {
                     if (memo[j][OFFSET + input]) {
                         res = "Y";
