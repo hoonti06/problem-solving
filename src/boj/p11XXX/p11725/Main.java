@@ -1,4 +1,4 @@
-package boj.p11725;
+package boj.p11XXX.p11725;
 
 import java.io.*;
 import java.util.*;

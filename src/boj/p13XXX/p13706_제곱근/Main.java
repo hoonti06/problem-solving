@@ -1,8 +1,7 @@
-package boj.p13706_제곱근;
+package boj.p13XXX.p13706_제곱근;
 
 import java.io.*;
 import java.math.BigInteger;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {

@@ -1,4 +1,4 @@
-package boj.p11403_경로찾기;
+package boj.p11XXX.p11403_경로찾기;
 
 import java.io.*;
 import java.util.*;

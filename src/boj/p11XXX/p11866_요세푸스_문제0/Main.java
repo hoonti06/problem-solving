@@ -1,4 +1,4 @@
-package boj.p11866_요세푸스_문제0;
+package boj.p11XXX.p11866_요세푸스_문제0;
 
 import java.util.*;
 import java.io.*;

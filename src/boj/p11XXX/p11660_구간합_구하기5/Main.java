@@ -1,4 +1,4 @@
-package boj.p11660_구간합_구하기5;
+package boj.p11XXX.p11660_구간합_구하기5;
 
 import java.io.*;
 import java.util.*;
