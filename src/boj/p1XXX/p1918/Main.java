@@ -1,25 +1,10 @@
 package boj.p1XXX.p1918;
 
-import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     static String infix;
-    static StringBuilder postfix = new StringBuilder();
-    static Stack<Node> opStack = new Stack<>();
-    static HashMap<Character, Integer> map = new HashMap<>();
-    //    static HashMap<Character, Integer> braketCnt = new HashMap<>();
-    static int braketCnt;
-//    static {
-//        map.put('(', 1);
-//        map.put(')', 2);
-//        map.put('*', 2);
-//        map.put('/', 2);
-//        map.put('+', 3);
-//        map.put('-', 3);
-//    }
 
     static class Node {
         int priority;
@@ -32,14 +17,18 @@ public class Main {
     }
 
 
-    static void solution() {
+    static String solution() {
+        StringBuilder postfix = new StringBuilder();
+        Deque<Node> opStack = new ArrayDeque<>();
+        int braketCnt = 0;
+
         int len = infix.length();
         for (int i = 0; i < len; i++) {
             char curCh = infix.charAt(i);
-//            int curNum = curCh - '0';
-            if ('A' <= curCh && curCh <= 'Z') {
+            if (Character.isUpperCase(curCh)) {
                 postfix.append(curCh);
-            } else {
+            }
+            else {
                 int priority;
                 switch (curCh) {
                     case '(':
@@ -79,6 +68,8 @@ public class Main {
         }
         while (!opStack.isEmpty())
             postfix.append(opStack.pop().ch);
+
+        return postfix.toString();
     }
 
     public static void main(String[] args) throws Exception {
@@ -87,7 +78,6 @@ public class Main {
 
         infix = sc.next();
 
-        solution();
-        System.out.println(postfix);
+        System.out.println(solution());
     }
 }
