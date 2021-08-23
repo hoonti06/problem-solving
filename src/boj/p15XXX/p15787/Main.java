@@ -29,30 +29,22 @@ public class Main {
             switch (op) {
                 case 1:
                     num |= (1 << s);
-                    list.set(t, num);
                     break;
                 case 2:
                     num &= ~(1 << s);
-                    list.set(t, num);
                     break;
                 case 3:
                     num <<= 1;
                     num &= ~(1 << 20);
-                    list.set(t, num);
                     break;
                 case 4:
                     num >>= 1;
-                    list.set(t, num);
                     break;
                 default:
                     break;
             }
+            list.set(t, num);
         }
-
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < N; i++) {
-            set.add(list.get(i));
-        }
-        System.out.println(set.size());
+        System.out.println(new HashSet<>(list).size());
     }
 }
