@@ -1,74 +1,91 @@
 package boj.p1XXX.p1013;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static Scanner sc;
-    static int T;
-//    String str;
+    static int N;
+    static String str;
+    static int len;
 
-    public static boolean solution(String s) {
-        int i = 0;
-        int length = s.length();
-        boolean running = true;
-        while (i < length) {
-            int j = i;
-            while (j < length) {
-//                if (j +1 < length && s.substring(j, 2).equals("01"))
-                if (s.charAt(j) == '0') {
-                    if (j + 1 < length && s.charAt(j + 1) == '1') {
-                        j += 2;
-                        break;
-                    } else {
-                        running = false;
-                        break;
-                    }
-                } else {
-                    if (j + 2 < length) {
-                        if (s.substring(j, j + 2).equals("100")) {
-                            j += 3;
-                            while (j < length) {
-                                if (j + 1 < length && s.substring(j, 2).equals("10")) {
-                                    j++;
-                                    break;
-                                } else if (j + 1 == length - 1 && s.charAt(j + 1) == '1') {
-
-                                } else {
-                                    if (j == 0)
-                                        j++;
-                                }
-                            }
-                            if (j >= length) {
-
-                            }
-                        } else {
-                            running = false;
-                            break;
-                        }
-                    } else {
-                        running = false;
-                        break;
-                    }
-
-                }
-            }
-            if (!running)
-                break;
+    static void go(int idx, char state) {
+        if (state == 'X') {
+            System.out.println("NO");
+            return;
         }
-        return true;
+
+        if (idx >= len) {
+            if (state == 'E' || state == 'G' || state == 'F' || state == 'S') {
+                System.out.println("YES");
+            }
+            else {
+                System.out.println("NO");
+            }
+            return;
+        }
+
+        if (state == 'S') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'B');
+            else
+                go(idx+1, 'A');
+        } else if (state == 'A') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'C');
+            else {
+                go(idx+1, 'X');
+            }
+        }
+        else if (state == 'B') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'X');
+            else
+                go(idx+1, 'F');
+        }
+        else if (state == 'C') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'D');
+            else
+                go(idx+1, 'X');
+        }
+        else if (state == 'D') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'D');
+            else
+                go(idx+1, 'E');
+        }
+        else if (state == 'E') {
+            if (str.charAt(idx) == '1')
+                go(idx+1, 'G');
+            else
+                go(idx+1, 'B');
+        }
+        else if (state == 'F') {
+            go(idx, 'S');
+        }
+        else if (state == 'G') {
+            if (str.charAt(idx) == '0')
+                go(idx+1, 'H');
+            else
+                go(idx+1, 'G');
+        }
+        else if (state == 'H') {
+            if (str.charAt(idx) == '1')
+                go(idx+1, 'F');
+            else
+                go(idx+1, 'D');
+        }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+
+    public static void main(String[] args) throws Exception {
         System.setIn(new FileInputStream("in.txt"));
-        sc = new Scanner(System.in);
-
-        T = sc.nextInt();
-        for (int tc = 1; tc < T; tc++) {
-            String str = sc.next();
-            boolean res = solution(str);
-
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(in.readLine());
+        for (int i = 0; i < N; i++) {
+            str = in.readLine();
+            len = str.length();
+            go(0, 'S');
         }
     }
 }
