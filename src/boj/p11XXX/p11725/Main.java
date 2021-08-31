@@ -14,11 +14,9 @@ public class Main {
             for (int qs = 0, qSz = q.size(); qs < qSz; qs++) {
                 int parent = q.poll();
 
-                for (int i = 0; i < list[parent].size(); i++) {
-                    int child = list[parent].get(i);
+                for (int child : list[parent]) {
                     if (parents[child] != 0) continue;
                     parents[child] = parent;
-
                     q.offer(child);
                 }
             }
