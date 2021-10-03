@@ -5,18 +5,20 @@ import java.util.*;
 
 public class Main {
     static int N, D, K, C;
-    static int[] input, cnt;
+    static int[] input, cnts;
 
     static int solution() {
-        int res = 0, sum = 0;
+        cnts[C]++;
+        int typeCnt = 1;
         for (int i = 0; i < K; i++)
-            if (++cnt[input[i]] == 1) sum++;
-        res = sum + (cnt[C] == 0? 1 : 0);
+            if (++cnts[input[i]] == 1) typeCnt++;
+        int res = typeCnt;
 
-        for (int cur = K, prev = 0; cur < N+K; cur++, prev++) {
-            if(--cnt[input[prev]] == 0) sum--;
-            if(++cnt[input[cur]] == 1) sum++;
-            res = Math.max(res, sum + (cnt[C] == 0? 1 : 0));
+        for (int i = K, prev = 0; i < N+K; i++, prev++) {
+            int cur = i % N;
+            if(--cnts[input[prev]] == 0) typeCnt--;
+            if(++cnts[input[cur]] == 1) typeCnt++;
+            res = Math.max(res, typeCnt);
         }
         return res;
     }
@@ -29,13 +31,11 @@ public class Main {
         D = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
-
-        input = new int[N + K+1];
-        cnt = new int[D+1];
-        for (int i = 0; i < N; i++)
+        input = new int[N];
+        cnts = new int[D+1];
+        for (int i = 0; i < N; i++) {
             input[i] = Integer.parseInt(in.readLine());
-        for (int i = 0; i < K; i++)
-            input[N+i] = input[i];
+        }
 
         System.out.println(solution());
     }

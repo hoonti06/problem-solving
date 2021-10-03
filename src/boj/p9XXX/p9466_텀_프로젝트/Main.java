@@ -1,19 +1,18 @@
 package boj.p9XXX.p9466_텀_프로젝트;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     static int N;
     static int[] input, indegree;
     static int solution() {
         Queue<Integer> q = new ArrayDeque<>();
-        for (int i = 1; i <= N; i++)
-            if (indegree[i] == 0) q.offer(i);
+        for (int i = 1; i <= N; i++) {
+            if (indegree[i] == 0) {
+                q.offer(i);
+            }
+        }
 
         int cnt = 0;
         while (!q.isEmpty()) {
@@ -21,8 +20,9 @@ public class Main {
             cnt++;
 
             int next = input[cur];
-            if (--indegree[next] <= 0)
+            if (--indegree[next] <= 0) {
                 q.offer(next);
+            }
         }
         return cnt;
     }

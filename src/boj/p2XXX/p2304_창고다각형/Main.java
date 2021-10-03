@@ -18,8 +18,8 @@ public class Main {
             String[] str = in.readLine().split(" ");
             int idx = Integer.parseInt(str[0]);
             int h = Integer.parseInt(str[1]);
-            maxLength = Math.max(idx + 1, maxLength);
             height[idx] = h;
+            maxLength = Math.max(idx + 1, maxLength);
         }
 
         int idx = -1;
@@ -32,23 +32,23 @@ public class Main {
                 max = height[i];
                 idx = i;
                 cnt = 1;
-            } else
+            } else {
                 cnt++;
+            }
         }
         sum += max;
 
         max = 0;
         cnt = 0;
         int fin = idx;
-        idx = maxLength;
         for (int i = maxLength - 1; i > fin; i--) {
             if (max <= height[i]) {
                 sum += cnt * max;
                 max = height[i];
-                idx = i;
                 cnt = 1;
-            } else
+            } else {
                 cnt++;
+            }
         }
         sum += cnt * max;
         System.out.println(sum);
