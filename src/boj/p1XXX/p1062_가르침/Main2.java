@@ -1,35 +1,36 @@
-package boj.p1XXX.p1062;
+package boj.p1XXX.p1062_가르침;
 
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Main2 {
     static int N, K;
-    static int res;
-    static int[] inputBits;
+    static int[] inputBitmask;
 
-    static void go(int cnt, int start, int bitmask) {
+    static int go(int cnt, int start, int bitmask) {
         if (cnt >= K) {
             int count = 0;
             for (int i = 0; i < N; i++) {
-                if ((inputBits[i] & bitmask) == inputBits[i]) {
+                if ((inputBitmask[i] & bitmask) == inputBitmask[i]) {
                     count++;
                 }
             }
-            res = Math.max(res, count);
-            return;
+            return count;
         }
 
+        int max = 0;
         for (int i = start; i < 26; i++) {
-            if ((bitmask & (1 << i)) > 0) continue;
-            go(cnt + 1, i + 1, bitmask | 1 << i);
+            int curBitmask = 1 << i;
+            if ((bitmask & curBitmask) > 0) continue;
+            int ret = go(cnt + 1, i + 1, bitmask | curBitmask);
+            max = Math.max(max, ret);
         }
+        return max;
     }
 
     public static void main(String[] args) throws Exception {
         System.setIn(new FileInputStream("in.txt"));
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        res = 0;
 
         StringTokenizer st = new StringTokenizer(in.readLine(), " ");
         N = Integer.parseInt(st.nextToken());
@@ -42,11 +43,11 @@ public class Main {
             return;
         }
 
-        inputBits = new int[N];
+        inputBitmask = new int[N];
         for (int i = 0; i < N; i++) {
             String word = in.readLine();
             for (char ch : word.toCharArray()) {
-                inputBits[i] |= 1 << ch - 'a';
+                inputBitmask[i] |= 1 << ch - 'a';
             }
         }
         int bitmask = 0;
@@ -56,7 +57,6 @@ public class Main {
         bitmask |= 1 << ('t' - 'a');
         bitmask |= 1 << ('i' - 'a');
 
-        go(5, 0, bitmask);
-        System.out.println(res);
+        System.out.println(go(5, 0, bitmask));
     }
 }
