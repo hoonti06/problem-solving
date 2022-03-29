@@ -1,4 +1,4 @@
-package programmers.p64065;
+package programmers.kakao2019winterintern.p64065;
 
 import java.util.*;
 
