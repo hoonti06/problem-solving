@@ -1,4 +1,4 @@
-package programmers.kakao2021.p4_합승_택시_요금;
+package programmers.kakao2021.p72413_합승_택시_요금;
 
 import java.util.Arrays;
 
@@ -7,9 +7,10 @@ public class Solution {
     static int[][] dists;
 
     public int solution(int n, int s, int a, int b, int[][] fares) {
-        dists = new int[n+1][n+1];
-        for (int i = 0; i <= n; i++)
+        dists = new int[n + 1][n + 1];
+        for (int i = 0; i <= n; i++) {
             Arrays.fill(dists[i], MAX_VAL);
+        }
 
         for (int[] cur : fares) {
             int from = cur[0];
@@ -39,15 +40,13 @@ public class Solution {
 
         return answer;
     }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-//        int[][] fares = {{4, 1, 10}, {3, 5, 24}, {5, 6, 2}, {3, 1, 41}, {5, 1, 24}, {4, 6, 50}, {2, 4, 66}, {2, 3, 22}, {1, 6, 25}};
-//        s.solution(6, 4, 6, 2, fares);
+        s.solution(6, 4, 6, 2, new int[][]{{4, 1, 10}, {3, 5, 24}, {5, 6, 2}, {3, 1, 41}, {5, 1, 24}, {4, 6, 50}, {2, 4, 66}, {2, 3, 22}, {1, 6, 25}});
 
-//        int[][] fares = {{5, 7, 9}, {4, 6, 4}, {3, 6, 1}, {3, 2, 3}, {2, 1, 6}};
-//        s.solution(7, 3, 4, 1, fares);
+        s.solution(7, 3, 4, 1, new int[][]{{5, 7, 9}, {4, 6, 4}, {3, 6, 1}, {3, 2, 3}, {2, 1, 6}});
 
-        int[][] fares = {{2,6,6}, {6,3,7}, {4,6,7}, {6,5,11}, {2,5,12}, {5,3,20}, {2,4,8}, {4,3,9}};
-        s.solution(6, 4, 5, 6, fares);
+        s.solution(6, 4, 5, 6, new int[][]{{2, 6, 6}, {6, 3, 7}, {4, 6, 7}, {6, 5, 11}, {2, 5, 12}, {5, 3, 20}, {2, 4, 8}, {4, 3, 9}});
     }
 }
